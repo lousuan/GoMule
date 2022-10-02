@@ -207,6 +207,12 @@ public class D2Item implements Comparable, D2ItemInterface {
 			int lNextJMPos = pFile.findNextFlag("JM", pFile.get_byte_pos());
 			int lLengthToNextJM = lNextJMPos - pPos;
 
+			int nextSTPos = pFile.findNextFlag("ST", pFile.get_byte_pos());
+			if (nextSTPos != -1 && nextSTPos < lNextJMPos) {
+				lLengthToNextJM = nextSTPos - pPos;
+			}
+
+
 			if (lLengthToNextJM < 0) {
 				int lNextKFPos = pFile.findNextFlag("kf", pFile.get_byte_pos());
 				int lNextJFPos = pFile.findNextFlag("jf", pFile.get_byte_pos());
@@ -238,7 +244,7 @@ public class D2Item implements Comparable, D2ItemInterface {
 
 			}
 
-			int lDiff = ((lLengthToNextJM * 8) - lCurrentReadLength);
+				int lDiff = ((lLengthToNextJM * 8) - lCurrentReadLength);
 			if (lDiff > 7) {
 				throw new D2ItemException(
 						"Item not read complete, missing bits: " + lDiff

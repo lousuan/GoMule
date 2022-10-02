@@ -254,6 +254,21 @@ public class D2BitReader
         return unflip(fixed_data, bits);
     }
 
+    /**
+     * read byte and convert to Flag String.
+     * Position (in bits) is advanced upon completion.
+     * @param num of byte, also the length of Flag
+     * @return
+     */
+    public String readFlagString(int num) {
+        long read = read(num * 8);
+        StringBuilder builder = new StringBuilder();
+        for (int i = num - 1; i >= 0; i--) {
+            builder.append((char) ((read >> (8 * i)) & 0xFF));
+        }
+        return builder.reverse().toString();
+    }
+
     // flips the last x bits of the long as specified by
     // 'bits'. This changes the number represented by
     // those bits back to the order expected by java

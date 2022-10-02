@@ -168,7 +168,7 @@ public class D2Stash extends D2ItemListAdapter
 	        {
 	            readItems(lNumItems);
 	        }else{
-	        	throw new Exception("Stash Version Incorrect!");
+//	        	throw new Exception("Stash Version Incorrect!");
 	        }
 	    }
     }
