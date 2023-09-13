@@ -16,6 +16,10 @@ dependencies {
     implementation("com.google.guava:guava:31.0.1-jre")
     implementation("com.formdev:flatlaf:1.6")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.13.+")
+
+    compileOnly("org.projectlombok:lombok:1.18.28")
+    annotationProcessor("org.projectlombok:lombok:1.18.28")
+
     testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
     testImplementation("org.mockito.kotlin:mockito-kotlin:3.2.0")
 }

@@ -24,7 +24,10 @@ package gomule.util;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
+import java.util.stream.Collectors;
 
 // this class is for reading and writing on
 // a bit level. i'd rename it, but then i'd
@@ -389,6 +392,37 @@ public class D2BitReader {
                 (byte) ((0x00ff0000 & lCheckSum) >>> 16),
                 (byte) ((0xff000000 & lCheckSum) >>> 24)
         };
+    }
+
+    public String readBytesAsString(int numOfBytes) {
+        char[] charArray = new char[numOfBytes];
+        for (int i = 0; i < numOfBytes; i++) {
+            long character = read(8);
+            charArray[i] = (char) character;
+        }
+        return new String(charArray);
+    }
+
+    public Long readBytesAsLong(int numOfBytes) {
+        return read(numOfBytes * 8);
+    }
+
+    public Integer readBytesAsInteger(int numOfBytes) {
+        return Math.toIntExact(read(numOfBytes * 8));
+    }
+
+
+    /**
+     * read C-Style String that ends with '\0'
+     */
+    public String readCStyleString() {
+        List<Character> charList = new ArrayList<>();
+        Character c = null;
+        do {
+            c = (char)read(8);
+            charList.add(c);
+        } while (c != '\0');
+        return charList.stream().map(Object::toString).collect(Collectors.joining());
     }
 }
 
